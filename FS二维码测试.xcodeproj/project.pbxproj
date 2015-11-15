@@ -416,7 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "FS二维码测试/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fsymbio.FS-----";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fsymbio.FSQRCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -427,7 +427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "FS二维码测试/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fsymbio.FS-----";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fsymbio.FSQRCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

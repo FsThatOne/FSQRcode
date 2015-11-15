@@ -17,6 +17,7 @@
 @property (nonatomic,strong) AVCaptureSession *session;
 @property (nonatomic,strong) AVCaptureDeviceInput *inputDevice;
 @property (nonatomic,strong) AVCaptureMetadataOutput *outputData;
+@property (nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
 
 @end
 
@@ -38,6 +39,7 @@
     [self startAnimation];
     [self setupSession];
     [self startScan];
+    [self setupLayer];
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
@@ -47,6 +49,7 @@
     [self startAnimation];
 }
 
+//开始动画
 -(void)startAnimation{
     self.topConstrain.constant = -self.heightConstrain.constant;
     [self.view layoutIfNeeded];
@@ -58,8 +61,16 @@
 
 }
 
+///开始扫描
 -(void)startScan{
-    [_session startRunning];
+    [self.session startRunning];
+}
+
+//设置涂层
+-(void)setupLayer{
+    self.previewLayer.frame = self.view.bounds;
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self.view.layer insertSublayer:self.previewLayer atIndex:0];
 }
 
 -(AVCaptureSession *)session{
@@ -84,18 +95,25 @@
     return _outputData;
 }
 
+-(AVCaptureVideoPreviewLayer *)previewLayer{
+    if (!_previewLayer) {
+        _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
+    }
+    return _previewLayer;
+}
+
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     NSLog(@"%@",metadataObjects);
 }
 
 -(void)setupSession{
      //判断能否添加设备
-    if (![_session canAddInput:_inputDevice]){
+    if (![self.session canAddInput:self.inputDevice]){
         NSLog(@"无法添加设备");
         return;
     }
     //判断能否输出数据
-    if (![_session canAddOutput:_outputData]) {
+    if (![self.session canAddOutput:self.outputData]) {
         NSLog(@"无法添加输出设备");
         return;
     }
