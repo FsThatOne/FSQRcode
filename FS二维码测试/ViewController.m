@@ -18,6 +18,8 @@
 @property (nonatomic,strong) AVCaptureDeviceInput *inputDevice;
 @property (nonatomic,strong) AVCaptureMetadataOutput *outputData;
 @property (nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic,strong) CALayer *drawLayer;
+@property (weak, nonatomic) IBOutlet UILabel *qrcodeLabel;
 
 @end
 
@@ -32,6 +34,10 @@
     self.tabBar.items[0].selectedImage = [UIImage imageNamed:@"qrcode_tabbar_icon_qrcode_highlighted"];
     self.tabBar.items[1].selectedImage = [UIImage imageNamed:@"qrcode_tabbar_icon_barcode_highlighted"];
     
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -68,6 +74,8 @@
 
 //设置涂层
 -(void)setupLayer{
+    self.drawLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:self.drawLayer atIndex:0];
     self.previewLayer.frame = self.view.bounds;
     self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer insertSublayer:self.previewLayer atIndex:0];
@@ -102,8 +110,58 @@
     return _previewLayer;
 }
 
+-(CALayer *)drawLayer{
+    if (!_drawLayer) {
+        _drawLayer = [[CALayer alloc] init];
+    }
+    return _drawLayer;
+}
+
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
-    NSLog(@"%@",metadataObjects);
+    //清空图层
+    [self clearLayer];
+    
+    for (id obj in metadataObjects) {
+        if ([[obj class] isSubclassOfClass:[AVMetadataMachineReadableCodeObject class]]) {
+            //数据类型转换
+            AVMetadataObject *codeObj = [self.previewLayer transformedMetadataObjectForMetadataObject:obj];
+            [self drawConners:(AVMetadataMachineReadableCodeObject *)codeObj];
+            self.qrcodeLabel.text = ((AVMetadataMachineReadableCodeObject *)codeObj).stringValue;
+        }
+    }
+}
+
+-(void)drawConners:(AVMetadataMachineReadableCodeObject *)codeObject{
+    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    layer.lineWidth = 3;
+    layer.strokeColor = [[UIColor blueColor] CGColor];
+    layer.fillColor = [[UIColor clearColor] CGColor];
+    //corners是一个包含CFDictionary类型的数组
+    layer.path = [[self drawPath:codeObject.corners] CGPath];
+    [_drawLayer addSublayer:layer];
+}
+
+-(void)clearLayer{
+    if (![self.drawLayer sublayers]) {
+        return;
+    }
+    for (CALayer *layer in [_drawLayer sublayers]) {
+        [layer removeFromSuperlayer];
+    }
+}
+
+-(UIBezierPath *)drawPath:(NSArray *)corners{
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGPoint point = CGPointMake(0,0);
+    NSInteger index = 0;
+    CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corners[index++], &point);
+    [path moveToPoint:point];
+    while (index < corners.count) {
+        CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corners[index++], &point);
+        [path addLineToPoint:point];
+    }
+    [path closePath];
+    return path;
 }
 
 -(void)setupSession{
