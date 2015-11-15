@@ -14,14 +14,85 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="1mk-Pk-vdK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <animations/>
+                                <items>
+                                    <navigationItem title="扫一扫" id="uLk-8n-wpH">
+                                        <barButtonItem key="leftBarButtonItem" title="关闭" id="s4I-1r-0AF"/>
+                                        <barButtonItem key="rightBarButtonItem" title="相册" id="Dpa-Sm-2Rt"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tabBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="OY9-Zi-f8g">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <animations/>
+                                <items>
+                                    <tabBarItem title="二维码" image="qrcode_tabbar_icon_qrcode" id="onz-Vs-bTx"/>
+                                    <tabBarItem tag="1" title="条形码" image="qrcode_tabbar_icon_barcode" id="ngo-Hz-6N5"/>
+                                </items>
+                            </tabBar>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Yt-Bb-f7R">
+                                <rect key="frame" x="62" y="209" width="250" height="250"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_scanline_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="8uh-kg-Wjs">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <animations/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_border" translatesAutoresizingMaskIntoConstraints="NO" id="Ft0-e5-DxN">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <animations/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="1CO-mk-yIj"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ft0-e5-DxN" secondAttribute="bottom" id="1a4-Df-ZHN"/>
+                                    <constraint firstItem="8uh-kg-Wjs" firstAttribute="width" secondItem="Ft0-e5-DxN" secondAttribute="width" id="2dM-cC-JQy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ft0-e5-DxN" secondAttribute="trailing" id="3ID-Jh-Gae"/>
+                                    <constraint firstItem="Ft0-e5-DxN" firstAttribute="leading" secondItem="1Yt-Bb-f7R" secondAttribute="leading" id="Ie5-OC-Att"/>
+                                    <constraint firstItem="8uh-kg-Wjs" firstAttribute="height" secondItem="Ft0-e5-DxN" secondAttribute="height" id="fUi-fv-Gf1"/>
+                                    <constraint firstItem="Ft0-e5-DxN" firstAttribute="top" secondItem="1Yt-Bb-f7R" secondAttribute="top" id="jcS-42-89y"/>
+                                    <constraint firstAttribute="width" constant="250" id="lv0-8q-Knl"/>
+                                    <constraint firstItem="8uh-kg-Wjs" firstAttribute="top" secondItem="Ft0-e5-DxN" secondAttribute="top" id="oZN-AG-b2o"/>
+                                    <constraint firstItem="8uh-kg-Wjs" firstAttribute="centerX" secondItem="Ft0-e5-DxN" secondAttribute="centerX" id="tI5-XL-b57"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OY9-Zi-f8g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0sb-co-Oyf"/>
+                            <constraint firstItem="1mk-Pk-vdK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2kM-OR-spf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="OY9-Zi-f8g" secondAttribute="bottom" id="6hn-Ut-5Pt"/>
+                            <constraint firstItem="1mk-Pk-vdK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="812-FW-fKq"/>
+                            <constraint firstItem="1Yt-Bb-f7R" firstAttribute="centerX" secondItem="OY9-Zi-f8g" secondAttribute="centerX" id="Dvo-FX-5AN"/>
+                            <constraint firstAttribute="trailing" secondItem="1mk-Pk-vdK" secondAttribute="trailing" id="anr-Rs-zng"/>
+                            <constraint firstItem="1Yt-Bb-f7R" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mVG-g6-MDL"/>
+                            <constraint firstAttribute="trailing" secondItem="OY9-Zi-f8g" secondAttribute="trailing" id="u44-da-Gbc"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="heightConstrain" destination="1CO-mk-yIj" id="In6-zn-WNr"/>
+                        <outlet property="imgView" destination="Ft0-e5-DxN" id="WSh-JR-roU"/>
+                        <outlet property="tabBar" destination="OY9-Zi-f8g" id="drl-GH-zrs"/>
+                        <outlet property="topConstrain" destination="oZN-AG-b2o" id="l5b-td-gTo"/>
+                        <outlet property="widthConstraint" destination="lv0-8q-Knl" id="z9X-XS-V6K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="qrcode_border" width="51" height="51"/>
+        <image name="qrcode_scanline_qrcode" width="218" height="170"/>
+        <image name="qrcode_tabbar_icon_barcode" width="40" height="40"/>
+        <image name="qrcode_tabbar_icon_qrcode" width="40" height="40"/>
+    </resources>
 </document>
