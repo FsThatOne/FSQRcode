@@ -138,16 +138,21 @@
     layer.fillColor = [[UIColor clearColor] CGColor];
     //corners是一个包含CFDictionary类型的数组
     layer.path = [[self drawPath:codeObject.corners] CGPath];
-    [_drawLayer addSublayer:layer];
+    [self.drawLayer addSublayer:layer];
 }
 
 -(void)clearLayer{
-    if (![self.drawLayer sublayers]) {
+    if (self.drawLayer.sublayers == nil) {
         return;
     }
-    for (CALayer *layer in [_drawLayer sublayers]) {
-        [layer removeFromSuperlayer];
+    int i = 0;
+    while (self.drawLayer.sublayers != nil) {
+        [self.drawLayer.sublayers[i++] removeFromSuperlayer];
     }
+//
+//    for (CALayer *layer in self.drawLayer.sublayers) {
+//        [layer removeFromSuperlayer];
+//    }
 }
 
 -(UIBezierPath *)drawPath:(NSArray *)corners{
