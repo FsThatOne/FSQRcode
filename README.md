@@ -1,2 +1,2 @@
 # FSQRcode
-二维码的Swift实现
+二维码的OC实现
